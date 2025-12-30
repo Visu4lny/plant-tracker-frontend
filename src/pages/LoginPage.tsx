@@ -24,6 +24,8 @@ export function LoginPage() {
     setError(null)
     console.log(data);
     // await api
+    localStorage.setItem('token', 'user-token')
+    // TODO change to api call
     setLoading(false)
   };
 

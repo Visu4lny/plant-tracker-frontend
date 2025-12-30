@@ -1,7 +1,7 @@
 export type Plant =  {
     id: string; // UUID
     name: string;
-    lastWateredAt: string;
+    lastWateredAt?: string;
 }
 
 export type PlantInput = {
