@@ -3,13 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { RegisterPage } from './pages/RegisterPage'
 import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/Dashboard'
-import type { JSX } from 'react'
-
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" />;
-}
-
+import { PrivateRoute } from './components/PrivateRoute'
 
 function App() {
 
