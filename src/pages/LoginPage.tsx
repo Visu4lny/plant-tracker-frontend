@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import "./LoginPage.css";
 import { useState } from "react";
 import type { LoginCredentials } from "../types";
+import { authApi } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const {
@@ -19,14 +21,27 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data: LoginCredentials) => {
     setLoading(true);
     setError(null)
     console.log(data);
-    // await api
-    localStorage.setItem('token', 'user-token')
-    // TODO change to api call
-    setLoading(false)
+    
+    try {
+      const response = await authApi.login(data);
+      console.log('Response:', response);
+      console.log('Token value:', response.jwt);
+      console.log('User value:', response.user);
+
+      localStorage.setItem('authToken', response.jwt);
+      console.log('Logged in:', response.user);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

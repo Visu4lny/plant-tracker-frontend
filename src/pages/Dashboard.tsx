@@ -2,21 +2,35 @@ import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { PlantList } from "../components/PlantList";
 import type { Plant } from "../types";
+import { useEffect, useState } from "react";
+import { plantsApi } from "../api";
 
 export const DashboardPage = () => {
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
     navigate('/login');
   }
 
-  const MOCK_PLANTS: Plant[] = [
-    { id: '1', name: 'Basil', lastWateredAt: '2025-12-29T08:00:00Z' },
-    { id: '2', name: 'Cactus'},
-    { id: '3', name: 'Oleander', lastWateredAt: '2025-12-20'}
-  ]
+  const [plants, setPlants] = useState<Plant[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPlants = async () => {
+      try {
+        const data = await plantsApi.getAll();
+        setPlants(data.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load plants');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPlants();
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -26,7 +40,9 @@ export const DashboardPage = () => {
       </header>
       
       <main>
-        <PlantList plants={MOCK_PLANTS} />
+        {loading && <div>Loading plants...</div>}
+        {error && <div className="error">{error}</div>}
+        {!loading && !error && <PlantList plants={plants} />}
       </main>
     </div>
   )

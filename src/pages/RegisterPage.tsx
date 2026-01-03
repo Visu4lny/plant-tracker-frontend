@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { RegisterCredentials } from "../types";
 import { useForm } from "react-hook-form";
 import "./RegisterPage.css";
+import { authApi } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterPage() {
 
@@ -24,12 +26,21 @@ export function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data: RegisterCredentials) => {
     setLoading(true);
     setError(null)
-    console.log(data);
-    // await api
-    setLoading(false)
+    try {
+      console.log('data: ', data);
+      const response = await authApi.register(data);
+      localStorage.setItem('token', response.data.token);
+      navigate('/dashboard')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Registration failed');
+    } finally {
+      setLoading(false);
+  }
   };
   
   return (
