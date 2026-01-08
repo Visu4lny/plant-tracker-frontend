@@ -5,7 +5,7 @@ import type { LoginCredentials } from "../types";
 import { authApi } from "../api";
 import { useNavigate } from "react-router-dom";
 
-export function LoginPage() {
+export const LoginPage = () => {
   const {
       register,
       handleSubmit,
@@ -26,16 +26,10 @@ export function LoginPage() {
   const onSubmit = async (data: LoginCredentials) => {
     setLoading(true);
     setError(null)
-    console.log(data);
     
     try {
       const response = await authApi.login(data);
-      console.log('Response:', response);
-      console.log('Token value:', response.jwt);
-      console.log('User value:', response.user);
-
       localStorage.setItem('authToken', response.jwt);
-      console.log('Logged in:', response.user);
       navigate('/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');

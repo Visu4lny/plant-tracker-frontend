@@ -1,3 +1,4 @@
+import "./PlantCard.css"
 
 export const PlantCard = ({ name, lastWateredAt }: { name: string; lastWateredAt?: string }) => (
   <div className="plant-container">

@@ -5,7 +5,7 @@ import { LoginPage } from './pages/LoginPage'
 import { DashboardPage } from './pages/Dashboard'
 import { PrivateRoute } from './components/PrivateRoute'
 
-function App() {
+const App = () => {
 
   return (
     <Router>

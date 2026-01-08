@@ -1,5 +1,26 @@
 .dashboard-container {
+  min-height: 100vh;
   background-color: #fafafa;
-  min-width: 500vw;
-  margin: auto;
+}
+
+.dashboard-header {
+  display: flex;                                                                                                                                                
+  justify-content: space-between;
+  align-items: center;                                                                                                                                          
+  padding: 1rem 2rem;                                                                                                                                           
+  background-color: #fff;
+  border-bottom: 1px solid #ddd; 
+  width: 70vw;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }

@@ -5,7 +5,7 @@ import "./RegisterPage.css";
 import { authApi } from "../api";
 import { useNavigate } from "react-router-dom";
 
-export function RegisterPage() {
+export const RegisterPage = () => {
 
   const {
       register,
@@ -32,9 +32,8 @@ export function RegisterPage() {
     setLoading(true);
     setError(null)
     try {
-      console.log('data: ', data);
       const response = await authApi.register(data);
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('authToken', response.jwt);
       navigate('/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');

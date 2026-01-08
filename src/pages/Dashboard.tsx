@@ -2,8 +2,10 @@ import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { PlantList } from "../components/PlantList";
 import type { Plant } from "../types";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { plantsApi } from "../api";
+import { Modal } from "../components/Modal";
+import { PlantForm } from "../components/PlantForm";
 
 export const DashboardPage = () => {
 
@@ -18,19 +20,31 @@ export const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchPlants = async () => {
+    try {
+      const plantsData = await plantsApi.getAll();
+      setPlants(plantsData);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load plants');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchPlants = async () => {
-      try {
-        const data = await plantsApi.getAll();
-        setPlants(data.data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load plants');
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPlants();
   }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const addPlant = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleSuccess = () => {
+    fetchPlants();
+    setIsModalOpen(false);
+  }
 
   return (
     <div className="dashboard-container">
@@ -38,12 +52,23 @@ export const DashboardPage = () => {
         <h1>My Plants</h1>
         <button onClick={handleLogout}>Logout</button>
       </header>
+
+      <div className="toolbar">
+        <button onClick={addPlant}>Add Plant</button>
+      </div>
       
       <main>
         {loading && <div>Loading plants...</div>}
         {error && <div className="error">{error}</div>}
         {!loading && !error && <PlantList plants={plants} />}
       </main>
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}  
+      >
+        <PlantForm onSuccess={handleSuccess}/>
+      </Modal>
+      
     </div>
   )
 }

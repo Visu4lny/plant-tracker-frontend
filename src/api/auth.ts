@@ -2,7 +2,7 @@ import type { LoginCredentials, RegisterCredentials, User } from "../types";
 import api from "./client";
 
 interface AuthResponse {
-  token: string;
+  jwt: string;
   user?: User;
 }
 
