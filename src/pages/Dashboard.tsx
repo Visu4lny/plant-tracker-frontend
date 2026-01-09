@@ -2,7 +2,7 @@ import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { PlantList } from "../components/PlantList";
 import type { Plant } from "../types";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { plantsApi } from "../api";
 import { Modal } from "../components/Modal";
 import { PlantForm } from "../components/PlantForm";
@@ -41,6 +41,15 @@ export const DashboardPage = () => {
     setIsModalOpen(true)
   }
 
+  const waterPlant = async (id: string) => {
+    try {
+      await plantsApi.updateLastWatered(id);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to water plant');
+    }
+    fetchPlants();
+  }
+
   const handleSuccess = () => {
     fetchPlants();
     setIsModalOpen(false);
@@ -56,19 +65,19 @@ export const DashboardPage = () => {
       <div className="toolbar">
         <button onClick={addPlant}>Add Plant</button>
       </div>
-      
+
       <main>
         {loading && <div>Loading plants...</div>}
         {error && <div className="error">{error}</div>}
-        {!loading && !error && <PlantList plants={plants} />}
+        {!loading && !error && <PlantList plants={plants} onWaterPlant={waterPlant}/>}
       </main>
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}  
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       >
-        <PlantForm onSuccess={handleSuccess}/>
+        <PlantForm onSuccess={handleSuccess} />
       </Modal>
-      
+
     </div>
   )
 }
