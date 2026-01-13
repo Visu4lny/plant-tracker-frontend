@@ -7,7 +7,7 @@ interface PlantFormProps {
   onSuccess: () => void;
 }
 
-export const PlantForm = ({onSuccess}: PlantFormProps) => {
+export const PlantForm = ({ onSuccess }: PlantFormProps) => {
 
   const {
     register,
@@ -38,7 +38,7 @@ export const PlantForm = ({onSuccess}: PlantFormProps) => {
   }
 
   return (
-    <div className="plantform-container">
+    <div className="plantForm-container">
       <h2>Add new Plant</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <span className="input-name">Plant name:</span>

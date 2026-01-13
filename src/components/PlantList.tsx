@@ -11,7 +11,13 @@ export const PlantList = ({ plants, onWaterPlant }: PlantListProps) => {
   return (
     <div className="plantList-container">
       <ul>
-        {plants.map(p => <PlantCard key={p.id} onWaterPlant={() => onWaterPlant(p.id)} {...p} />)}
+        {plants.map(p => 
+          <PlantCard 
+            key={p.id}
+            name={p.name}
+            lastWateredAt={p.lastWateredAt}
+            onWaterPlant={() => onWaterPlant(p.id)} 
+          />)}
       </ul>
     </div>
   )

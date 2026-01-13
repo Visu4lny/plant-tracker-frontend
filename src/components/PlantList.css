@@ -1,3 +1,7 @@
+.plantList-container {                                                                                                                                                                                  
+  width: 100%;                                                                                                                                                                                          
+  max-width: 1200px;                                                                                                                                                                                    
+} 
 .plantList-container ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

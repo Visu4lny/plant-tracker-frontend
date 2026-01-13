@@ -10,7 +10,8 @@
   padding: 1rem 2rem;                                                                                                                                           
   background-color: #fff;
   border-bottom: 1px solid #ddd; 
-  width: 70vw;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .toolbar {
@@ -22,5 +23,5 @@
 main {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 0.5rem;
 }

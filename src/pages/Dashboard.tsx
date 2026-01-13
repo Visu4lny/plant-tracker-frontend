@@ -44,10 +44,10 @@ export const DashboardPage = () => {
   const waterPlant = async (id: string) => {
     try {
       await plantsApi.updateLastWatered(id);
+      fetchPlants();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to water plant');
     }
-    fetchPlants();
   }
 
   const handleSuccess = () => {
