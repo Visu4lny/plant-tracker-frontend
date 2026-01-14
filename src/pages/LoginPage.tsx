@@ -62,7 +62,7 @@ export const LoginPage = () => {
         <button type="submit">
           {loading ? 'Logging in' : 'Log in'}
         </button>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   )

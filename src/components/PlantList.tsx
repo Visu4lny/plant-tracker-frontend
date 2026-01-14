@@ -4,10 +4,10 @@ import { PlantCard } from "./PlantCard";
 
 interface PlantListProps {
   plants: Plant[];
-  onWaterPlant: (id: string) => void;
+  onWater: (id: string) => void;
 
 }
-export const PlantList = ({ plants, onWaterPlant }: PlantListProps) => {
+export const PlantList = ({ plants, onWater }: PlantListProps) => {
   return (
     <div className="plantList-container">
       <ul>
@@ -16,7 +16,7 @@ export const PlantList = ({ plants, onWaterPlant }: PlantListProps) => {
             key={p.id}
             name={p.name}
             lastWateredAt={p.lastWateredAt}
-            onWaterPlant={() => onWaterPlant(p.id)} 
+            onWater={() => onWater(p.id)} 
           />)}
       </ul>
     </div>

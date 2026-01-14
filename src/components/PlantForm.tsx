@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { PlantInput } from "../types";
 import { plantsApi } from "../api";
+import "./PlantForm.css";
 
 interface PlantFormProps {
   onSuccess: () => void;
@@ -58,7 +59,7 @@ export const PlantForm = ({ onSuccess }: PlantFormProps) => {
         <button type="submit">
           {loading ? 'Creating new plant...' : 'Create'}
         </button>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   )

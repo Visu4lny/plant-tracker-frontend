@@ -69,7 +69,7 @@ export const DashboardPage = () => {
       <main>
         {loading && <div>Loading plants...</div>}
         {error && <div className="error">{error}</div>}
-        {!loading && !error && <PlantList plants={plants} onWaterPlant={waterPlant}/>}
+        {!loading && !error && <PlantList plants={plants} onWater={waterPlant}/>}
       </main>
       <Modal
         isOpen={isModalOpen}

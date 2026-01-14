@@ -7,9 +7,9 @@ interface AuthResponse {
 }
 
 export const authApi = {
-  login: (credentials: LoginCredentials) =>
-    api.post<AuthResponse>('/auth/login', credentials),
+  login: (credentials: LoginCredentials): Promise<AuthResponse> =>
+    api.post<AuthResponse>('/auth/login', credentials) as unknown as Promise<AuthResponse>,
 
-  register: (credentials: RegisterCredentials) =>
-    api.post<AuthResponse>('/auth/register', credentials)
+  register: (credentials: RegisterCredentials): Promise<AuthResponse> =>
+    api.post<AuthResponse>('/auth/register', credentials) as unknown as Promise<AuthResponse>
 };

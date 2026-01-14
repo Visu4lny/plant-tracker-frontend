@@ -82,7 +82,7 @@ export const RegisterPage = () => {
         <button type="submit">
           {loading ? 'Registering...' : 'Register'}
         </button>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   )
