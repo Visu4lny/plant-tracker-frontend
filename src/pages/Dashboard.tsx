@@ -50,6 +50,15 @@ export const DashboardPage = () => {
     }
   }
 
+  const deletePlant = async (id: string) => {
+    try {
+      await plantsApi.delete(id);
+      fetchPlants();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to delete plant');
+    }
+  }
+
   const handleSuccess = () => {
     fetchPlants();
     setIsModalOpen(false);
@@ -69,7 +78,7 @@ export const DashboardPage = () => {
       <main>
         {loading && <div>Loading plants...</div>}
         {error && <div className="error">{error}</div>}
-        {!loading && !error && <PlantList plants={plants} onWater={waterPlant}/>}
+        {!loading && !error && <PlantList plants={plants} onWater={waterPlant} onDelete={deletePlant}/>}
       </main>
       <Modal
         isOpen={isModalOpen}
